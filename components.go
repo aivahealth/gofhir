@@ -87,6 +87,7 @@ type Concept struct {
 }
 
 // Thing is a FHIR thing
+// FIXME: This is really a FHIR "Reference"
 type Thing struct {
 	Display   string `json:"display"`
 	Reference string `json:"reference"`
@@ -183,4 +184,14 @@ type DosageInstruction struct {
 // DispenseRequest is a dispensing request
 type DispenseRequest struct {
 	ValidityPeriod Period `json:"validityPeriod"`
+}
+
+type Participant struct {
+	Type []Concept `json:"type"`
+
+	// Patient | Practitioner | RelatedPerson | Device | HealthcareService | Location
+	Actor Thing `json:"actor"`
+
+	Required string `json:"required"`
+	Status   string `json:"status"`
 }

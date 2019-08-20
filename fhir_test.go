@@ -1,6 +1,9 @@
 package fhir
 
-import "testing"
+import (
+	"log"
+	"testing"
+)
 
 const pid = "Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB"
 const ordercode = "8310-5"
@@ -10,7 +13,7 @@ func TestDevice(t *testing.T) {
 	c := New(baseurl)
 	data, err := c.GetDevice(pid)
 	if err != nil {
-		t.Error(err)
+		t.Fatal(err)
 	}
 	if data.Total == 0 {
 		t.Error("Expected > 0 got 0")
@@ -126,3 +129,16 @@ func TestFamilyHx(t *testing.T) {
 		t.Error("Expected > 0 got 0")
 	}
 }
+
+func TestAppointment(t *testing.T) {
+	c := New(baseurl)
+	data, err := c.GetAppointmentsByPatient(pid)
+	if err != nil {
+		t.Fatal(err)
+	}
+	log.Printf("%#v", *data)
+	if data.Total == 0 {
+		t.Error("Expected > 0 got 0")
+	}
+}
+
